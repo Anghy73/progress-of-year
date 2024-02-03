@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export default function ProgressBar () {
+export default function ProgressBar ({ reset }) {
   const [percentage, setPercentage] = useState(0)
 
   const isYearLeap = (year) => {
@@ -29,9 +29,13 @@ export default function ProgressBar () {
     }
   }, [percentage])
 
+  useEffect(() => {
+    setPercentage(0)
+  }, [reset])
+
   return (
     <div className='absolute top-[50%] -translate-y-[50%] left-[50%] -translate-x-[50%] flex flex-col justify-center items-center w-full max-w-3xl lg:left-[50%] lg:-translate-x-[40%] p-5'>
-      <div className='sm:text-[13rem] text-8xl text-cyan-600 font-bold tracking-wide mb-20'>{`${percentage}`.padStart(3, '0')}%</div>
+      <div className='sm:text-[13rem] text-8xl text-cyan-600 font-bold tracking-wide mb-20 font-cha'>{`${percentage}`.padStart(3, '0')}%</div>
       <div className='relative flex justify-start items-center border-2 border-indigo-600 rounded-lg w-full max-w-2xl h-14 p-2  bg-black'>
         <div className='w-full'>
           <div
