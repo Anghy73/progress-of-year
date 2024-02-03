@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 export default function ProgressBar ({ reset }) {
   const [percentage, setPercentage] = useState(0)
@@ -23,8 +23,12 @@ export default function ProgressBar ({ reset }) {
     return Math.round(elapsedDays * 100 / totalDaysOfYear)
   }
 
+  const limit = useMemo(() => {
+    return percentageOfYear()
+  }, [])
+
   useEffect(() => {
-    if (percentage < percentageOfYear()) {
+    if (percentage < limit) {
       setTimeout(() => setPercentage(prev => (prev += 1)), 70)
     }
   }, [percentage])
